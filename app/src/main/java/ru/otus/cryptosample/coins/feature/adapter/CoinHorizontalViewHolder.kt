@@ -1,15 +1,14 @@
 package ru.otus.cryptosample.coins.feature.adapter
 
 import androidx.core.content.ContextCompat
-import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import ru.otus.cryptosample.R
 import ru.otus.cryptosample.coins.feature.CoinState
-import ru.otus.cryptosample.databinding.ItemCoinBinding
+import ru.otus.cryptosample.databinding.ItemCoinHorizontalBinding
 
-class CoinViewHolder(
-    private val binding: ItemCoinBinding
+class CoinHorizontalViewHolder(
+    private val binding: ItemCoinHorizontalBinding
 ) : RecyclerView.ViewHolder(binding.root) {
 
     fun bind(coin: CoinState) {
@@ -29,12 +28,12 @@ class CoinViewHolder(
                 placeholder(R.drawable.generic)
                 error(R.drawable.generic)
             }
-
-            fireBadge.isVisible = coin.highlight
+            
+            updateHighlight(coin.highlight)
         }
     }
 
-    fun updateHighlight(highlight: Boolean) {
-        binding.fireBadge.isVisible = highlight
+    fun updateHighlight(isHighlighted: Boolean) {
+        binding.fireBadge.visibility = if (isHighlighted) RecyclerView.VISIBLE else RecyclerView.GONE
     }
 }
