@@ -23,12 +23,15 @@ class CoinsAdapter(
         private const val VIEW_TYPE_HORIZONTAL = 2
     }
 
-    fun setData(categories: List<CoinCategoryState>, showAll: Boolean) {
+    fun setData(categories: List<CoinCategoryState>) {
         val adapterItems = mutableListOf<CoinsAdapterItem>()
         categories.forEach { category ->
             adapterItems.add(CoinsAdapterItem.CategoryHeader(category.id, category.name))
-            if (category.coins.size > 10 && !showAll) {
-                adapterItems.add(CoinsAdapterItem.HorizontalCategory(category.id, category.coins))
+
+            if (category.coins.size > 10) {
+                adapterItems.add(
+                    CoinsAdapterItem.HorizontalCategory(category.id, category.coins)
+                )
             } else {
                 category.coins.forEach { coin ->
                     adapterItems.add(CoinsAdapterItem.CoinItem(coin))
