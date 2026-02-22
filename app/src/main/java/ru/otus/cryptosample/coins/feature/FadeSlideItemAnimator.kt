@@ -7,6 +7,8 @@ class FadeSlideItemAnimator : DefaultItemAnimator() {
 
     override fun animateAdd(holder: RecyclerView.ViewHolder): Boolean {
 
+        dispatchAddStarting(holder)
+
         holder.itemView.apply {
             alpha = 0f
             translationX = -50f
@@ -14,15 +16,18 @@ class FadeSlideItemAnimator : DefaultItemAnimator() {
                 .alpha(1f)
                 .translationX(0f)
                 .setDuration(250)
-                .setListener(null)
+                .withEndAction {
+                    dispatchAddFinished(holder)
+                }
                 .start()
         }
 
-        dispatchAddFinished(holder)
-        return false
+        return true
     }
 
     override fun animateRemove(holder: RecyclerView.ViewHolder): Boolean {
+
+        dispatchRemoveStarting(holder)
 
         holder.itemView.animate()
             .alpha(0f)
